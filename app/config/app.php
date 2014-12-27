@@ -191,5 +191,7 @@ return array(
 		'View'              => 'Illuminate\Support\Facades\View',
 
 	),
+	
+	'pageTitle' => 'JointHub - Spazio collaborativo e corsi a Montecchio - Fichissimo!',
 
 );
