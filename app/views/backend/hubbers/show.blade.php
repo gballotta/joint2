@@ -1,0 +1,1 @@
+/home/vagrant/progetti/joint2/app/views/backend/hubbers/show.blade.php

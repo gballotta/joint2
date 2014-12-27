@@ -11,7 +11,33 @@
 |
 */
 
+/*
+|---------------------------
+| Home page - Frontend
+|--------------------------- 
+*/
+
 Route::get('/', function()
 {
 	return View::make('home');
 });
+
+/*
+|---------------------------
+| Home page - Backend
+|--------------------------- 
+*/
+
+Route::get('backend/', function() {
+	return View::make('backend.home');
+});
+
+/*
+|---------------------------
+| Backend
+|--------------------------- 
+*/
+
+// Gestione Hubbers
+
+Route::resource('hubbers', 'HubbersController');
