@@ -11,10 +11,10 @@ class HubbersController extends \BaseController {
 	{
 		$hubbers = '';
 		if (Input::get('cognomericerca') == '*') {
-			$hubbers = Hubber::all();
+			$hubbers = Hubber::orderBy('cognome', 'asc')->get();
 			return View::make('backend.hubbers.index', compact('hubbers'))->with('cognomecercato', 'Tutti');
 		} else {
-			$hubbers = Hubber::where('cognome', '=', Input::get('cognomericerca'))->get();
+			$hubbers = Hubber::where('cognome', '=', Input::get('cognomericerca'))->orderBy('nome', 'asc')->get();
 			return View::make('backend.hubbers.index', compact('hubbers'))->with('cognomecercato', Input::get('cognomericerca'));
 		}
 	}
@@ -42,8 +42,6 @@ class HubbersController extends \BaseController {
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
-		
-		echo('Andata bene!');
 		
 		Hubber::create($data);
 
@@ -73,7 +71,7 @@ class HubbersController extends \BaseController {
 	{
 		$hubber = Hubber::find($id);
 
-		return View::make('hubbers.edit', compact('hubber'));
+		return View::make('backend.hubbers.edit', compact('hubber'));
 	}
 
 	/**
@@ -86,7 +84,7 @@ class HubbersController extends \BaseController {
 	{
 		$hubber = Hubber::findOrFail($id);
 
-		$validator = Validator::make($data = Input::all(), Hubber::$rules);
+		$validator = Validator::make($data = Input::all(), Hubber::$validationRules);
 
 		if ($validator->fails())
 		{
@@ -95,7 +93,7 @@ class HubbersController extends \BaseController {
 
 		$hubber->update($data);
 
-		return Redirect::route('hubbers.index');
+		return Redirect::route('hubbers.index')->with('messaggio', 'Utente modificato');
 	}
 
 	/**
@@ -108,7 +106,7 @@ class HubbersController extends \BaseController {
 	{
 		Hubber::destroy($id);
 
-		return Redirect::route('hubbers.index');
+		return Redirect::route('hubbers.index')->with('messaggio', 'Utente eliminato');
 	}
 
 }
